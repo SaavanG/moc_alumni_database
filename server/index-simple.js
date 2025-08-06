@@ -13,7 +13,27 @@ app.use(express.json());
 
 // In-memory storage (for testing deployment)
 let pendingSubmissions = [];
-let alumni = []; // Start with empty alumni database
+
+// Initialize alumni with any environment variable data
+let alumni = [];
+
+// Load any persistent alumni from environment variables
+function loadPersistentAlumni() {
+  try {
+    if (process.env.ALUMNI_DATA) {
+      const persistentAlumni = JSON.parse(process.env.ALUMNI_DATA);
+      if (Array.isArray(persistentAlumni)) {
+        alumni = [...persistentAlumni];
+        console.log(`Loaded ${alumni.length} persistent alumni records`);
+      }
+    }
+  } catch (error) {
+    console.log('No persistent alumni data found or error parsing:', error.message);
+  }
+}
+
+// Load persistent data on startup
+loadPersistentAlumni();
 
 let admins = [
   {
@@ -340,6 +360,21 @@ app.delete('/api/reject-submission/:id', authenticateToken, (req, res) => {
     res.json({ message: 'Submission rejected and removed' });
   } catch (error) {
     console.error('Reject submission error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Export current alumni data (admin only) - for backup purposes
+app.get('/api/export-alumni', authenticateToken, (req, res) => {
+  try {
+    res.json({
+      message: 'Current alumni data',
+      count: alumni.length,
+      data: alumni,
+      envVariable: JSON.stringify(alumni)
+    });
+  } catch (error) {
+    console.error('Export alumni error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
