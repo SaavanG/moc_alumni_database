@@ -4,10 +4,12 @@
   "description": "MOC Alumni Database - Connecting current members with alumni",
   "main": "server/index.js",
   "scripts": {
+    "start": "cd server && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build"
   },
   "keywords": ["alumni", "database", "moc", "networking"],
   "author": "MOC President",
