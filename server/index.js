@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -18,14 +18,15 @@ const dbPath = process.env.NODE_ENV === 'production'
   ? '/tmp/database.sqlite'  // Railway's writable tmp directory
   : './database.sqlite';    // Local development
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error('Error opening database:', err.message);
-  } else {
-    console.log(`Connected to SQLite database at: ${dbPath}`);
-    initializeDatabase();
-  }
-});
+let db;
+try {
+  db = new Database(dbPath);
+  console.log(`Connected to SQLite database at: ${dbPath}`);
+  initializeDatabase();
+} catch (err) {
+  console.error('Error opening database:', err.message);
+  process.exit(1);
+}
 
 // Initialize database tables
 function initializeDatabase() {
