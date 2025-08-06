@@ -138,16 +138,7 @@ const Login = ({ onLogin }) => {
             </div>
           </form>
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-md">
-            <div className="text-sm text-blue-700">
-              <p className="font-medium mb-1">Default Admin Credentials:</p>
-              <p>Username: <span className="font-mono">admin</span></p>
-              <p>Password: <span className="font-mono">admin123</span></p>
-              <p className="text-xs mt-2 text-blue-600">
-                Please change these credentials after your first login for security.
-              </p>
-            </div>
-          </div>
+
         </div>
 
         <div className="text-center">

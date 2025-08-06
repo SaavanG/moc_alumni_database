@@ -53,7 +53,7 @@ let admins = [
   {
     id: 1,
     username: 'admin',
-    password_hash: bcrypt.hashSync('admin123', 10)
+    password_hash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'MOC_Admin_2024!', 10)
   }
 ];
 
