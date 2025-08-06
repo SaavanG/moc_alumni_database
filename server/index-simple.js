@@ -13,42 +13,7 @@ app.use(express.json());
 
 // In-memory storage (for testing deployment)
 let pendingSubmissions = [];
-let alumni = [
-  {
-    id: 1,
-    full_name: "John Smith",
-    email: "john.smith@email.com",
-    year_graduated: 2020,
-    current_college: "MIT",
-    college_major: "Computer Science",
-    second_major: "Mathematics",
-    profession: "Software Engineer",
-    linkedin_url: "https://linkedin.com/in/johnsmith",
-    created_at: new Date().toISOString()
-  },
-  {
-    id: 2,
-    full_name: "Sarah Johnson",
-    email: "sarah.johnson@email.com",
-    year_graduated: 2019,
-    current_college: "Stanford University",
-    college_major: "Business Administration",
-    profession: "Product Manager",
-    linkedin_url: "https://linkedin.com/in/sarahjohnson",
-    created_at: new Date().toISOString()
-  },
-  {
-    id: 3,
-    full_name: "Mike Chen",
-    email: "mike.chen@email.com",
-    year_graduated: 2021,
-    current_college: "UC Berkeley",
-    college_major: "Electrical Engineering",
-    profession: "Hardware Engineer",
-    linkedin_url: "https://linkedin.com/in/mikechen",
-    created_at: new Date().toISOString()
-  }
-];
+let alumni = []; // Start with empty alumni database
 
 let admins = [
   {
