@@ -9,7 +9,7 @@
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
-    "build": "cd client && npm run build"
+    "build": "cd server && npm install"
   },
   "keywords": ["alumni", "database", "moc", "networking"],
   "author": "MOC President",
