@@ -34,11 +34,15 @@ const Login = ({ onLogin }) => {
       setLoading(true);
       setError('');
       
+      console.log('Attempting login with:', { username: formData.username }); // Debug
       const response = await axios.post('/api/login', formData);
+      console.log('Login response:', response.data); // Debug
       
-      onLogin(response.data.token, response.data);
+      onLogin(response.data.token, response.data.user);
       navigate('/admin');
     } catch (err) {
+      console.error('Login error:', err); // Debug
+      console.error('Error response:', err.response?.data); // Debug
       setError(err.response?.data?.error || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
@@ -78,6 +82,7 @@ const Login = ({ onLogin }) => {
                 name="username"
                 type="text"
                 required
+                autoComplete="username"
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -95,6 +100,7 @@ const Login = ({ onLogin }) => {
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   required
+                  autoComplete="current-password"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"

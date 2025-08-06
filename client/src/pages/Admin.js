@@ -45,11 +45,14 @@ const Admin = () => {
       const response = await axios.get('/api/alumni', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setAlumni(response.data);
-      setFilteredAlumni(response.data);
+      const alumniData = response.data.alumni || []; // Extract alumni array from response
+      setAlumni(alumniData);
+      setFilteredAlumni(alumniData);
     } catch (err) {
       setError('Failed to load alumni data');
       console.error('Error fetching alumni:', err);
+      setAlumni([]); // Ensure alumni is always an array
+      setFilteredAlumni([]);
     } finally {
       setLoading(false);
     }
