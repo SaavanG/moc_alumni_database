@@ -179,6 +179,53 @@ app.post('/api/alumni', authenticateToken, (req, res) => {
   }
 });
 
+// Update alumni
+app.put('/api/alumni/:id', authenticateToken, (req, res) => {
+  try {
+    const { id } = req.params;
+    const { full_name, email, year_graduated, current_college, college_major, second_major, profession, linkedin_url } = req.body;
+    
+    if (!full_name || !email || !year_graduated || !current_college || !college_major) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const alumniIndex = alumni.findIndex(a => a.id === parseInt(id));
+    
+    if (alumniIndex === -1) {
+      return res.status(404).json({ error: 'Alumni not found' });
+    }
+
+    // Check if email already exists in other alumni records
+    const emailExists = alumni.some(a => a.id !== parseInt(id) && a.email.toLowerCase() === email.toLowerCase());
+    
+    if (emailExists) {
+      return res.status(400).json({ error: 'This email address is already in use by another alumni' });
+    }
+
+    // Update the alumni record
+    alumni[alumniIndex] = {
+      ...alumni[alumniIndex],
+      full_name,
+      email,
+      year_graduated: parseInt(year_graduated),
+      current_college,
+      college_major,
+      second_major: second_major || null,
+      profession: profession || null,
+      linkedin_url: linkedin_url || null,
+      updated_at: new Date().toISOString()
+    };
+
+    res.json({
+      message: 'Alumni updated successfully',
+      alumni: alumni[alumniIndex]
+    });
+  } catch (error) {
+    console.error('Update alumni error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Delete alumni
 app.delete('/api/alumni/:id', authenticateToken, (req, res) => {
   try {
