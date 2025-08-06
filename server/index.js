@@ -14,11 +14,15 @@ app.use(cors());
 app.use(express.json());
 
 // Database setup
-const db = new sqlite3.Database('./database.sqlite', (err) => {
+const dbPath = process.env.NODE_ENV === 'production' 
+  ? '/tmp/database.sqlite'  // Railway's writable tmp directory
+  : './database.sqlite';    // Local development
+
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
-    console.log('Connected to SQLite database.');
+    console.log(`Connected to SQLite database at: ${dbPath}`);
     initializeDatabase();
   }
 });
@@ -318,6 +322,6 @@ app.post('/api/change-password', authenticateToken, (req, res) => {
   });
 });
 
-app.listen(PORT, 'localhost', () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 }); 
