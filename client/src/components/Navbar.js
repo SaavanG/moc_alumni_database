@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Users, Home, Shield, LogOut } from 'lucide-react';
+import { Menu, X, Users, Home, Shield, LogOut, UserPlus } from 'lucide-react';
 
 const Navbar = ({ isAuthenticated, user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +9,7 @@ const Navbar = ({ isAuthenticated, user, onLogout }) => {
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Directory', path: '/directory', icon: Users },
+    { name: 'Submit Info', path: '/submit', icon: UserPlus },
     ...(isAuthenticated ? [{ name: 'Admin', path: '/admin', icon: Shield }] : [])
   ];
 

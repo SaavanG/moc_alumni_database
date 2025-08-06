@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // In-memory storage (for testing deployment)
+let pendingSubmissions = [];
 let alumni = [
   {
     id: 1,
@@ -211,6 +212,122 @@ app.get('/api/filters', (req, res) => {
     });
   } catch (error) {
     console.error('Get filters error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Submit alumni information for approval
+app.post('/api/submit-alumni', async (req, res) => {
+  try {
+    const { full_name, email, year_graduated, current_college, college_major, second_major, profession, linkedin_url } = req.body;
+    
+    if (!full_name || !email || !year_graduated || !current_college || !college_major) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Check if email already exists in approved alumni or pending submissions
+    const emailExists = alumni.some(a => a.email.toLowerCase() === email.toLowerCase()) ||
+                       pendingSubmissions.some(s => s.email.toLowerCase() === email.toLowerCase());
+    
+    if (emailExists) {
+      return res.status(400).json({ error: 'This email address has already been submitted' });
+    }
+
+    const newSubmission = {
+      id: pendingSubmissions.length + 1000, // Different ID range to avoid conflicts
+      full_name,
+      email,
+      year_graduated: parseInt(year_graduated),
+      current_college,
+      college_major,
+      second_major: second_major || null,
+      profession: profession || null,
+      linkedin_url: linkedin_url || null,
+      submitted_at: new Date().toISOString(),
+      status: 'pending'
+    };
+
+    pendingSubmissions.push(newSubmission);
+    
+    res.status(201).json({
+      message: 'Submission received successfully. It will be reviewed by an admin.',
+      submission_id: newSubmission.id
+    });
+  } catch (error) {
+    console.error('Submit alumni error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get pending submissions (admin only)
+app.get('/api/pending-submissions', authenticateToken, (req, res) => {
+  try {
+    res.json({
+      submissions: pendingSubmissions,
+      count: pendingSubmissions.length
+    });
+  } catch (error) {
+    console.error('Get pending submissions error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Approve submission (admin only)
+app.post('/api/approve-submission/:id', authenticateToken, (req, res) => {
+  try {
+    const { id } = req.params;
+    const submissionIndex = pendingSubmissions.findIndex(s => s.id === parseInt(id));
+    
+    if (submissionIndex === -1) {
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+
+    const submission = pendingSubmissions[submissionIndex];
+    
+    // Create new alumni entry from submission
+    const newAlumni = {
+      id: alumni.length + 1,
+      full_name: submission.full_name,
+      email: submission.email,
+      year_graduated: submission.year_graduated,
+      current_college: submission.current_college,
+      college_major: submission.college_major,
+      second_major: submission.second_major,
+      profession: submission.profession,
+      linkedin_url: submission.linkedin_url,
+      created_at: new Date().toISOString()
+    };
+
+    alumni.push(newAlumni);
+    
+    // Remove from pending submissions
+    pendingSubmissions.splice(submissionIndex, 1);
+    
+    res.json({ 
+      message: 'Submission approved and added to alumni directory',
+      alumni: newAlumni 
+    });
+  } catch (error) {
+    console.error('Approve submission error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Reject submission (admin only)
+app.delete('/api/reject-submission/:id', authenticateToken, (req, res) => {
+  try {
+    const { id } = req.params;
+    const submissionIndex = pendingSubmissions.findIndex(s => s.id === parseInt(id));
+    
+    if (submissionIndex === -1) {
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+
+    pendingSubmissions.splice(submissionIndex, 1);
+    
+    res.json({ message: 'Submission rejected and removed' });
+  } catch (error) {
+    console.error('Reject submission error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

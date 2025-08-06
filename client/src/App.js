@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Directory from './pages/Directory';
+import Submit from './pages/Submit';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import './App.css';
@@ -42,6 +43,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/directory" element={<Directory />} />
+            <Route path="/submit" element={<Submit />} />
             <Route path="/login" element={<Login onLogin={login} />} />
             <Route 
               path="/admin" 
