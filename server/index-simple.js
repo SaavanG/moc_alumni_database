@@ -12,7 +12,43 @@ app.use(cors());
 app.use(express.json());
 
 // In-memory storage (for testing deployment)
-let alumni = [];
+let alumni = [
+  {
+    id: 1,
+    full_name: "John Smith",
+    email: "john.smith@email.com",
+    year_graduated: 2020,
+    current_college: "MIT",
+    college_major: "Computer Science",
+    second_major: "Mathematics",
+    profession: "Software Engineer",
+    linkedin_url: "https://linkedin.com/in/johnsmith",
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 2,
+    full_name: "Sarah Johnson",
+    email: "sarah.johnson@email.com",
+    year_graduated: 2019,
+    current_college: "Stanford University",
+    college_major: "Business Administration",
+    profession: "Product Manager",
+    linkedin_url: "https://linkedin.com/in/sarahjohnson",
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 3,
+    full_name: "Mike Chen",
+    email: "mike.chen@email.com",
+    year_graduated: 2021,
+    current_college: "UC Berkeley",
+    college_major: "Electrical Engineering",
+    profession: "Hardware Engineer",
+    linkedin_url: "https://linkedin.com/in/mikechen",
+    created_at: new Date().toISOString()
+  }
+];
+
 let admins = [
   {
     id: 1,
@@ -156,6 +192,25 @@ app.delete('/api/alumni/:id', authenticateToken, (req, res) => {
     res.json({ message: 'Alumni deleted successfully' });
   } catch (error) {
     console.error('Delete alumni error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get filter options
+app.get('/api/filters', (req, res) => {
+  try {
+    // Extract unique values from alumni data for filters
+    const years = [...new Set(alumni.map(a => a.year_graduated))].sort((a, b) => b - a);
+    const colleges = [...new Set(alumni.map(a => a.current_college))].sort();
+    const majors = [...new Set(alumni.map(a => a.college_major))].sort();
+
+    res.json({
+      years,
+      colleges,
+      majors
+    });
+  } catch (error) {
+    console.error('Get filters error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
