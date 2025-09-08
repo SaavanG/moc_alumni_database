@@ -181,7 +181,7 @@ const Admin = () => {
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Panel</h1>
             <p className="text-gray-600">
-              Manage the MOC Alumni Database
+              Manage the Trinity MOC Alumni Database
             </p>
           </div>
           <div className="flex space-x-3">

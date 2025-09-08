@@ -1,4 +1,4 @@
-# Setup Instructions for MOC Alumni Database
+# Setup Instructions for Trinity MOC Alumni Database
 
 ## Prerequisites Installation
 

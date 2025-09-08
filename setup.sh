@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up MOC Alumni Database..."
+echo "🚀 Setting up Trinity MOC Alumni Database..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then

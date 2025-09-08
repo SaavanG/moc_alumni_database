@@ -58,7 +58,7 @@ const Login = ({ onLogin }) => {
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Admin Login</h2>
           <p className="text-gray-600">
-            Access the MOC Alumni Database administration panel
+            Access the Trinity MOC Alumni Database administration panel
           </p>
         </div>
 
@@ -143,7 +143,7 @@ const Login = ({ onLogin }) => {
 
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            Need help? Contact the MOC leadership team.
+            Need help? Contact the Trinity MOC leadership team.
           </p>
         </div>
       </div>

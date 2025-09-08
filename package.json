@@ -1,7 +1,7 @@
 {
   "name": "moc-alumni-database",
   "version": "1.0.0",
-  "description": "MOC Alumni Database - Connecting current members with alumni",
+  "description": "Trinity MOC Alumni Database - Connecting current members with alumni",
   "main": "server/index.js",
   "scripts": {
     "start": "cd server && npm start",
@@ -12,7 +12,7 @@
     "build": "cd server && npm install"
   },
   "keywords": ["alumni", "database", "moc", "networking"],
-  "author": "MOC President",
+  "author": "Trinity MOC President",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"

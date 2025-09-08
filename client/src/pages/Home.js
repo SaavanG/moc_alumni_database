@@ -43,7 +43,7 @@ const Home = () => {
               <Users className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Welcome to <span className="text-primary-600">MOC Alumni Database</span>
+              Welcome to <span className="text-primary-600">Trinity MOC Alumni Database</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
               Connecting current Men of Color members with our distinguished alumni network. 
@@ -73,7 +73,7 @@ const Home = () => {
       <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">About MOC</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">About Trinity MOC</h2>
             <p className="text-lg text-gray-600">
               Men of Color (MOC) is a student organization dedicated to supporting and empowering 
               students of color in their academic and professional journeys. Our alumni network 
@@ -142,7 +142,7 @@ const Home = () => {
       <div className="bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-600">
-            Questions about the alumni database? Contact the MOC leadership team or 
+            Questions about the alumni database? Contact the Trinity MOC leadership team or 
             <Link to="/login" className="text-primary-600 hover:text-primary-700 ml-1">
               access the admin panel
             </Link>

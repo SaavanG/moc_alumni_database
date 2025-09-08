@@ -54,7 +54,7 @@ let admins = [
   {
     id: 1,
     username: 'admin',
-    password_hash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'MOC_Admin_2024!', 10)
+    password_hash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'Trinity_MOC_Admin_2024!', 10)
   }
 ];
 
@@ -79,7 +79,7 @@ const authenticateToken = (req, res, next) => {
 // Test route
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'MOC Alumni Database API is running!',
+    message: 'Trinity MOC Alumni Database API is running!',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });

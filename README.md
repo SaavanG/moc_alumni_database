@@ -1,11 +1,11 @@
-# MOC Alumni Database
+# Trinity MOC Alumni Database
 
-A full-stack web application for the Men of Color (MOC) organization to connect current members with alumni for mentorship, networking, and guidance.
+A full-stack web application for the Trinity Men of Color (MOC) organization to connect current members with alumni for mentorship, networking, and guidance.
 
 ## Features
 
 ### Core Features
-- **Homepage**: Explains MOC and the purpose of the alumni database
+- **Homepage**: Explains Trinity MOC and the purpose of the alumni database
 - **Alumni Directory**: Searchable and filterable directory of all alumni
 - **Admin Panel**: Secure admin access to manage alumni data
 - **Responsive Design**: Mobile-friendly interface
@@ -164,7 +164,7 @@ MOC_alumni/
 
 ## Usage
 
-### For Current MOC Members
+### For Current Trinity MOC Members
 1. Visit the homepage to learn about the alumni database
 2. Navigate to the Directory page to browse alumni
 3. Use search and filters to find specific alumni
@@ -205,8 +205,8 @@ PORT=5000
 
 ## Support
 
-For questions or support, contact the MOC leadership team.
+For questions or support, contact the Trinity MOC leadership team.
 
 ## License
 
-This project is for internal use by the MOC organization. 
+This project is for internal use by the Trinity MOC organization. 

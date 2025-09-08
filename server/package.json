@@ -1,7 +1,7 @@
  {
   "name": "moc-alumni-server",
   "version": "1.0.0",
-  "description": "Backend server for MOC Alumni Database",
+  "description": "Backend server for Trinity MOC Alumni Database",
   "main": "index-simple.js",
   "scripts": {
     "start": "node index-simple.js",

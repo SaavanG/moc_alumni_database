@@ -107,7 +107,7 @@ const Submit = () => {
             <User className="w-12 h-12 text-primary-600 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Submit Your Information</h1>
             <p className="text-gray-600">
-              Former MOC member? Add yourself to our alumni directory! 
+              Former Trinity MOC member? Add yourself to our alumni directory! 
               Your submission will be reviewed by an admin before being published.
             </p>
           </div>
@@ -297,7 +297,7 @@ const Submit = () => {
 
           <div className="mt-6 p-4 bg-blue-50 rounded-md">
             <p className="text-sm text-blue-700">
-              <strong>Note:</strong> All submissions are reviewed by MOC administrators before being added to the public directory. 
+              <strong>Note:</strong> All submissions are reviewed by Trinity MOC administrators before being added to the public directory. 
               This helps us maintain the quality and accuracy of our alumni database.
             </p>
           </div>
