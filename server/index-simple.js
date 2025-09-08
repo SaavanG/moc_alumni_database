@@ -7,9 +7,24 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'https://moc-alumni-database.vercel.app',
+    'http://localhost:3000', // For local development
+    'http://localhost:3001'  // Alternative local port
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 // In-memory storage (for testing deployment)
 let pendingSubmissions = [];
