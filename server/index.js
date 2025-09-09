@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const Database = require('better-sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -34,14 +34,15 @@ const dbPath = process.env.NODE_ENV === 'production'
   : './database.sqlite';    // Local development
 
 let db;
-try {
-  db = new Database(dbPath);
-  console.log(`Connected to SQLite database at: ${dbPath}`);
-  initializeDatabase();
-} catch (err) {
-  console.error('Error opening database:', err.message);
-  process.exit(1);
-}
+db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+    process.exit(1);
+  } else {
+    console.log(`Connected to SQLite database at: ${dbPath}`);
+    initializeDatabase();
+  }
+});
 
 // Initialize database tables
 function initializeDatabase() {
@@ -58,34 +59,38 @@ function initializeDatabase() {
     linkedin_url TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
-
-  // Create admin table
-  db.run(`CREATE TABLE IF NOT EXISTS admins (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`, (err) => {
     if (err) {
-      console.error('Error creating admin table:', err);
+      console.error('Error creating alumni table:', err);
     } else {
-      // Create default admin if table is empty
-      db.get("SELECT COUNT(*) as count FROM admins", (err, row) => {
+      // Create admin table
+      db.run(`CREATE TABLE IF NOT EXISTS admins (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password_hash TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`, (err) => {
         if (err) {
-          console.error('Error checking admin count:', err);
-        } else if (row.count === 0) {
-          const defaultPassword = 'admin123'; // Change this in production
-          bcrypt.hash(defaultPassword, 10, (err, hash) => {
+          console.error('Error creating admin table:', err);
+        } else {
+          // Create default admin if table is empty
+          db.get("SELECT COUNT(*) as count FROM admins", (err, row) => {
             if (err) {
-              console.error('Error hashing password:', err);
-            } else {
-              db.run("INSERT INTO admins (username, password_hash) VALUES (?, ?)", 
-                ['admin', hash], (err) => {
+              console.error('Error checking admin count:', err);
+            } else if (row.count === 0) {
+              const defaultPassword = 'Trinity_MOC_Admin_2024!'; // Trinity MOC admin password
+              bcrypt.hash(defaultPassword, 10, (err, hash) => {
                 if (err) {
-                  console.error('Error creating default admin:', err);
+                  console.error('Error hashing password:', err);
                 } else {
-                  console.log('Default admin created: username=admin, password=admin123');
+                  db.run("INSERT INTO admins (username, password_hash) VALUES (?, ?)", 
+                    ['admin', hash], (err) => {
+                    if (err) {
+                      console.error('Error creating default admin:', err);
+                    } else {
+                      console.log('Default admin created: username=admin, password=Trinity_MOC_Admin_2024!');
+                    }
+                  });
                 }
               });
             }

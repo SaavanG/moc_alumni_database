@@ -1,4 +1,4 @@
- {
+{
   "name": "moc-alumni-server",
   "version": "1.0.0",
   "description": "Backend server for Trinity MOC Alumni Database",
@@ -17,4 +17,4 @@
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
-} 
+}
