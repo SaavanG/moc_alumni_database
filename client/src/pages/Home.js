@@ -148,6 +148,12 @@ const Home = () => {
             </Link>
             .
           </p>
+          <p className="text-gray-600 mt-2">
+            For all other alumni questions, please contact: 
+            <a href="mailto:alumni@trinityschoolnyc.org" className="text-primary-600 hover:text-primary-700 ml-1">
+              alumni@trinityschoolnyc.org
+            </a>
+          </p>
         </div>
       </div>
     </div>
