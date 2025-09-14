@@ -300,6 +300,9 @@ const Submit = () => {
               <strong>Note:</strong> All submissions are reviewed by Trinity MOC administrators before being added to the public directory. 
               This helps us maintain the quality and accuracy of our alumni database.
             </p>
+            <p className="text-sm text-blue-700 mt-2">
+              <strong>For all other alumni questions, please contact:</strong> alumni@trinityschoolnyc.org
+            </p>
           </div>
         </div>
       </div>
